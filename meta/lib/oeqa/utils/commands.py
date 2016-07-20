@@ -273,22 +273,3 @@ def updateEnv(env_file):
     for line in result.output.split("\0"):
         (key, _, value) = line.partition("=")
         os.environ[key] = value
-
-def restoreEnv(old_env):
-    """
-    Restore environment with os.environ.
-
-    os.environ.clear() will throw an exception if there is
-    environment variable without any value, this function
-    will deal with such cases.
-    """
-
-    keys = list(os.environ.keys())
-
-    for var in keys:
-        if var:
-            if not os.environ[var]:
-                os.environ[var] = "tmp"
-            del os.environ[var]
-
-    os.environ.update(old_env)
