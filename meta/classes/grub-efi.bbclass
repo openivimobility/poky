@@ -42,6 +42,9 @@ efi_populate() {
 	fi
 	install -m 0644 ${DEPLOY_DIR_IMAGE}/${GRUB_IMAGE} ${DEST}${EFIDIR}
 
+	EFIPATH=$(echo "${EFIDIR}" | sed 's/\//\\/g')
+	printf 'fs0:%s\%s\n' "$EFIPATH" "$GRUB_IMAGE" >${DEST}/startup.nsh
+
 	install -m 0644 ${GRUBCFG} ${DEST}${EFIDIR}/grub.cfg
 }
 
